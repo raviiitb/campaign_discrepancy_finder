@@ -5,7 +5,7 @@ The purpose of the task is to get an idea of your development style: the way you
 ### Task background
 
 We publish our jobs to different marketing sources. To keep track of where the particular job is published, we create
-`Campaign` entity in database. `Campaigns` are periodically synched with 3rd party _Ad Service_.
+`Campaign` entity in database. `Campaigns` are periodically synchronized with 3rd party _Ad Service_.
 
 Due to various types of failures (_Ad Service_ inavailability, errors in campaign details etc.)
 local `Campaigns` can fall out of sync with _Ad Service_.
@@ -24,10 +24,10 @@ which would get campaigns from external JSON API([example link](https://mockbin.
 |-- spec
     |-- specs go here
 ```
-You're free to add gems you need(including those which part of Rails).
+You're free to add gems you need(including those which are part of Rails).
 
 3. You don't have to put all your code into one class. Please use your best judgment to split the code up into separate components.
-4. **Note** Don't fork this repository.
+4. **Note** Don't fork this repository. Create you own repository and send us a link to it. You may describe some of the assumptions you had in the README file of your repository.
 
 ### Service output format
 You're free to choose the output format which makes sense to you, we suggest the following:

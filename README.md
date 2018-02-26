@@ -13,7 +13,7 @@ So we need a way to detect discrepancies between local and remote state.
 
 ### TODOs
 1. Develop a [Service](https://medium.com/selleo/essential-rubyonrails-patterns-part-1-service-objects-1af9f9573ca1)(as in _Service Object_ pattern),
-which would get campaigns from external [API](https://mockbin.org/bin/fcb30500-7b98-476f-810d-463a0b8fc3df) and detect discrepancies between local and remote state.
+which would get campaigns from external JSON API([example link](https://mockbin.org/bin/fcb30500-7b98-476f-810d-463a0b8fc3df)) and detect discrepancies between local and remote state.
 2. The purpose of the task is to work on business logic, so please don't create a Rails app. Rather stucture your project the following way:
 ```
 |-- .ruby-version

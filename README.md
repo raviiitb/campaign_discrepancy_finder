@@ -7,6 +7,14 @@ The purpose of the task is to get an idea of your development style: the way you
 We publish our jobs to different marketing sources. To keep track of where the particular job is published, we create
 `Campaign` entity in database. `Campaigns` are periodically synchronized with 3rd party _Ad Service_.
 
+`Campaign` properties:
+
+- `id`
+- `job_id`
+- `status`: one of [active, paused, deleted]
+- `external_reference`: corresponds to Ad’s ‘reference’
+- `ad_description`: text description of an Ad
+
 Due to various types of failures (_Ad Service_ inavailability, errors in campaign details etc.)
 local `Campaigns` can fall out of sync with _Ad Service_.
 So we need a way to detect discrepancies between local and remote state.

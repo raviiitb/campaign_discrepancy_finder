@@ -18,8 +18,8 @@ which would get campaigns from external JSON API([example link](https://mockbin.
 ```
 |-- .ruby-version
 |-- .ruby-gemset
+|-- Gemfile
 |-- lib
-    |-- Gemfile
     |-- source files go here
 |-- spec
     |-- specs go here

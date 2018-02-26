@@ -49,4 +49,4 @@ You're free to choose the output format which makes sense to you, we suggest the
 ]
 ```
 
-Have fun!
+**Have fun!**

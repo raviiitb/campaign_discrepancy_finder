@@ -1,6 +1,5 @@
 require './lib/services/campaign_discrepancy_finder'
 require './lib/models/campaign'
-require 'pry'
 
 RSpec.describe CampaignDiscrepancyFinder do
   before :all do
@@ -78,9 +77,9 @@ RSpec.describe CampaignDiscrepancyFinder do
           {
             'discrepancies' => [
               {
-              'status' => {
-                'local' => 'active',
-                'remote' => 'enabled'
+                'status' => {
+                  'local' => 'active',
+                  'remote' => 'enabled'
                 }
               },
               {

@@ -1,44 +1,46 @@
+# Service accepts array of remote campaigns
+# Returns array of campaigns which are not synched with remote
 class CampaignDiscrepancyFinder
-# campaigns: Array
-# [
-#   {
-#     "reference": "1",
-#     "status": "enabled",
-#     "description": "Description for campaign 11"
-#   },
-#   {
-#     "reference": "2",
-#     "status": "disabled",
-#     "description": "Description for campaign 12"
-#   }
-#  ]
+  # campaigns: Array
+  # [
+  #   {
+  #     "reference": "1",
+  #     "status": "enabled",
+  #     "description": "Description for campaign 11"
+  #   },
+  #   {
+  #     "reference": "2",
+  #     "status": "disabled",
+  #     "description": "Description for campaign 12"
+  #   }
+  #  ]
   def initialize(campaigns)
     @campaigns = campaigns
   end
 
-# Returns empty array([]) when there is no discrepancy
-# data: [
-#   {
-#     "remote_reference": "1",
-#     "discrepancies": [
-#       "status": {
-#         "remote": "disabled",
-#         "local": "active"
-#       },
-#       "description": {
-#         "remote": "Rails Engineer",
-#         "local": "Ruby on Rails Developer"
-#       }
-#     ]
-#   }
-# ]
+  # Returns empty array([]) when there is no discrepancy
+  # data: [
+  #   {
+  #     "remote_reference": "1",
+  #     "discrepancies": [
+  #       "status": {
+  #         "remote": "disabled",
+  #         "local": "active"
+  #       },
+  #       "description": {
+  #         "remote": "Rails Engineer",
+  #         "local": "Ruby on Rails Developer"
+  #       }
+  #     ]
+  #   }
+  # ]
   def run
     data = @campaigns.each_with_object([]) do |campaign, response|
-              local_camp = Campaign.find_by(external_reference: campaign['reference'])
-              if discrepancy?(local_camp, campaign)
-                response << build_camp_response(local_camp, campaign)
-              end
-            end
+      local_camp = Campaign.find_by(external_reference: campaign['reference'])
+      if discrepancy?(local_camp, campaign)
+        response << build_camp_response(local_camp, campaign)
+      end
+    end
     { data: data }.to_json
   end
 

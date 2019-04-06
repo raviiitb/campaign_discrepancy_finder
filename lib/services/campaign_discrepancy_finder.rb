@@ -32,6 +32,10 @@ class CampaignDiscrepancyFinder
       output << { status: { remote: remote[:status],
                             local: local.status } }
     end
+    if local.ad_description != remote[:description]
+      output << { description: { remote: remote[:description],
+                                 local: local.ad_description } }
+    end
     output
   end
 end

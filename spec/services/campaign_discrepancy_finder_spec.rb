@@ -22,7 +22,7 @@ RSpec.describe CampaignDiscrepancyFinder do
       let(:remote_campaign) do
         [{ 'reference' => '1', 'status' => 'enabled', 'description' => 'Test' }]
       end
-      let(:expect_output) do
+      let(:expected_output) do
         [
           {
             'discrepancies' => [
@@ -39,7 +39,7 @@ RSpec.describe CampaignDiscrepancyFinder do
       end
       it 'should include only status in the output' do
         result = CampaignDiscrepancyFinder.new(remote_campaign).run
-        expect(JSON.parse(result)['data']).to eq(expect_output)
+        expect(JSON.parse(result)['data']).to eq(expected_output)
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe CampaignDiscrepancyFinder do
       let(:remote_campaign) do
         [{ 'reference' => '1', 'status' => 'active', 'description' => 'different' }]
       end
-      let(:expect_output) do
+      let(:expected_output) do
         [
           {
             'discrepancies' => [
@@ -64,7 +64,7 @@ RSpec.describe CampaignDiscrepancyFinder do
       end
       it 'should include only description in the output' do
         result = CampaignDiscrepancyFinder.new(remote_campaign).run
-        expect(JSON.parse(result)['data']).to eq(expect_output)
+        expect(JSON.parse(result)['data']).to eq(expected_output)
       end
     end
 
@@ -72,7 +72,7 @@ RSpec.describe CampaignDiscrepancyFinder do
       let(:remote_campaign) do
         [{ 'reference' => '1', 'status' => 'enabled', 'description' => 'different' }]
       end
-      let(:expect_output) do
+      let(:expected_output) do
         [
           {
             'discrepancies' => [
@@ -95,7 +95,7 @@ RSpec.describe CampaignDiscrepancyFinder do
       end
       it 'should include both status and description in the output' do
         result = CampaignDiscrepancyFinder.new(remote_campaign).run
-        expect(JSON.parse(result)['data']).to eq(expect_output)
+        expect(JSON.parse(result)['data']).to eq(expected_output)
       end
     end
   end

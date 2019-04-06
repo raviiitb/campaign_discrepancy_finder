@@ -1,5 +1,6 @@
 require './lib/services/campaign_discrepancy_finder'
 require './lib/models/campaign'
+require 'pry'
 
 RSpec.describe CampaignDiscrepancyFinder do
   before :all do
@@ -9,89 +10,93 @@ RSpec.describe CampaignDiscrepancyFinder do
 
   context 'there is no discrepancy between remote and local campaign' do
     let(:remote_campaign) do
-      [{ reference: '1', status: 'active', description: 'Test' }]
+      [{ 'reference' => '1', 'status' => 'active', 'description' => 'Test' }]
     end
     it 'should return empty array' do
-      expect(CampaignDiscrepancyFinder.new(remote_campaign).run).to eq([])
+      result = CampaignDiscrepancyFinder.new(remote_campaign).run
+      expect(JSON.parse(result)['data']).to eq([])
     end
   end
 
   context 'there are discrepancies between remote and local campaign' do
     context 'only status is different' do
       let(:remote_campaign) do
-        [{ reference: '1', status: 'enabled', description: 'Test' }]
+        [{ 'reference' => '1', 'status' => 'enabled', 'description' => 'Test' }]
       end
       let(:expect_output) do
         [
           {
-            discrepancies: [
+            'discrepancies' => [
               {
-                status: {
-                  local: 'active',
-                  remote: 'enabled'
+                'status' => {
+                  'local' => 'active',
+                  'remote' => 'enabled'
                 }
               }
             ],
-            remote_reference: '1'
+            'remote_reference' => '1'
           }
         ]
       end
       it 'should include only status in the output' do
-        expect(CampaignDiscrepancyFinder.new(remote_campaign).run).to eq(expect_output)
+        result = CampaignDiscrepancyFinder.new(remote_campaign).run
+        expect(JSON.parse(result)['data']).to eq(expect_output)
       end
     end
 
     context 'only description is different' do
       let(:remote_campaign) do
-        [{ reference: '1', status: 'active', description: 'Different' }]
+        [{ 'reference' => '1', 'status' => 'active', 'description' => 'different' }]
       end
       let(:expect_output) do
         [
           {
-            discrepancies: [
+            'discrepancies' => [
               {
-                description: {
-                  local: 'Test',
-                  remote: 'Different'
+                'description' => {
+                  'local' => 'Test',
+                  'remote' => 'different'
                 }
               }
             ],
-            remote_reference: '1'
+            'remote_reference' => '1'
           }
         ]
       end
       it 'should include only description in the output' do
-        expect(CampaignDiscrepancyFinder.new(remote_campaign).run).to eq(expect_output)
+        result = CampaignDiscrepancyFinder.new(remote_campaign).run
+        expect(JSON.parse(result)['data']).to eq(expect_output)
       end
     end
 
     context 'both status and description are different' do
       let(:remote_campaign) do
-        [{ reference: '1', status: 'enabled', description: 'Different' }]
+        [{ 'reference' => '1', 'status' => 'enabled', 'description' => 'different' }]
       end
       let(:expect_output) do
         [
           {
-            discrepancies: [
+            'discrepancies' => [
               {
-                status: {
-                  local: 'active',
-                  remote: 'enabled'
+              'status' => {
+                'local' => 'active',
+                'remote' => 'enabled'
                 }
               },
               {
-                description: {
-                  local: 'Test',
-                  remote: 'Different'
+                'description' => {
+                  'local' => 'Test',
+                  'remote' => 'different'
                 }
               }
             ],
-            remote_reference: '1'
+            'remote_reference' => '1'
           }
         ]
       end
       it 'should include both status and description in the output' do
-        expect(CampaignDiscrepancyFinder.new(remote_campaign).run).to eq(expect_output)
+        result = CampaignDiscrepancyFinder.new(remote_campaign).run
+        expect(JSON.parse(result)['data']).to eq(expect_output)
       end
     end
   end

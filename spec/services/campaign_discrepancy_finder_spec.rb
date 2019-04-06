@@ -64,5 +64,35 @@ RSpec.describe CampaignDiscrepancyFinder do
         expect(CampaignDiscrepancyFinder.new(remote_campaign).run).to eq(expect_output)
       end
     end
+
+    context 'both status and description are different' do
+      let(:remote_campaign) do
+        [{ reference: '1', status: 'enabled', description: 'Different' }]
+      end
+      let(:expect_output) do
+        [
+          {
+            discrepancies: [
+              {
+                status: {
+                  local: 'active',
+                  remote: 'enabled'
+                }
+              },
+              {
+                description: {
+                  local: 'Test',
+                  remote: 'Different'
+                }
+              }
+            ],
+            remote_reference: '1'
+          }
+        ]
+      end
+      it 'should include both status and description in the output' do
+        expect(CampaignDiscrepancyFinder.new(remote_campaign).run).to eq(expect_output)
+      end
+    end
   end
 end

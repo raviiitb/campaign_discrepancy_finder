@@ -42,7 +42,7 @@ data: [
 ]
 ```
 There is a model called `Campaign` having following attributes.
-`integer "job_id"`
-`integer "status"`
-`string "external_reference"`
-`text "ad_description"`
+* `integer "job_id"`
+* `integer "status"`
+* `string "external_reference"`
+* `text "ad_description"`
